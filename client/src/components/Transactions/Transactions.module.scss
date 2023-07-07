@@ -1,0 +1,70 @@
+@use "../../sass/abstracts/colors.scss" as *;
+.table {
+  width: 100%;
+  th,
+  td {
+    border: 1px dotted #656565;
+    padding: 1rem;
+    font-size: 1.3rem;
+  }
+  tr {
+    transition: color 0.1s ease-in, background 0.1s ease-in, opacity 1s ease;
+    opacity: 1;
+  }
+
+  tr:not(thead tr):hover {
+    background: $primary;
+    color: #fff;
+  }
+}
+
+@media (max-width: "900px") {
+  .table thead {
+    display: none;
+  }
+
+  .table tr:nth-child(even) {
+    background: #e7e7e7;
+  }
+
+  .table tr td {
+    display: flex;
+    gap: 3rem;
+    word-break: break-all;
+
+    &:before {
+      font-weight: bold;
+      width: 8rem;
+      flex-shrink: 0;
+      word-break: normal;
+    }
+
+    &:first-child::before {
+      content: "Id: ";
+    }
+
+    &:nth-child(2)::before {
+      content: "Amount: ";
+    }
+
+    &:nth-child(3)::before {
+      content: "Beneficiary: ";
+    }
+
+    &:nth-child(4)::before {
+      content: "Account: ";
+    }
+
+    &:nth-child(5)::before {
+      content: "Address: ";
+    }
+
+    &:nth-child(6)::before {
+      content: "Date: ";
+    }
+
+    &:nth-child(7)::before {
+      content: "Description: ";
+    }
+  }
+}

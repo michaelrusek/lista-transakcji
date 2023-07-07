@@ -1,0 +1,48 @@
+@use "../abstracts/colors.scss" as *;
+
+.checkbox {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  cursor: pointer;
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+
+    &:checked + .checkbox__placeholder::after {
+      opacity: 1;
+    }
+  }
+
+  &__placeholder {
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid #cbcbcb;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: border 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    &::after {
+      content: "";
+      width: 1rem;
+      height: 1rem;
+      background: $secondary;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    &:hover {
+      border-color: $primary;
+    }
+  }
+
+  &__text {
+    font-size: 1.5rem;
+  }
+}

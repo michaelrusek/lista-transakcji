@@ -1,0 +1,11 @@
+@use "../../sass/abstracts/colors.scss" as *;
+
+.form {
+  background: #fff;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: bold;
+  }
+}

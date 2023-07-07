@@ -1,0 +1,15 @@
+@use "./../abstracts/colors.scss" as *;
+
+.input {
+  border: 2px solid #d8d8d8;
+  width: 100%;
+  padding: 1rem 2rem;
+  display: block;
+  transition: border 0.3s ease;
+  outline: none;
+  border-radius: 10px;
+
+  &:focus {
+    border-color: $secondary;
+  }
+}

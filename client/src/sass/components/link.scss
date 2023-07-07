@@ -1,0 +1,6 @@
+@use "../abstracts/colors.scss" as *;
+
+.link {
+  color: $secondary;
+  text-decoration: underline;
+}
