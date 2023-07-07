@@ -49,12 +49,7 @@ const AddTransaction = ({
   const [message, setMessage] = useState<string>(
     "Coś poszło nie tak. Spróbuj ponownie za kilka minut."
   );
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Inputs>();
+  const { register, handleSubmit } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const date = new Date();
 
@@ -85,13 +80,11 @@ const AddTransaction = ({
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setSubmitError(false);
         setSubmitSuccess(true);
         usefetchTransactions(setTransactions, setError, setTransactionsInitial);
       })
       .catch((err) => {
-        console.log(err.message);
         setMessage("Coś poszło nie tak. Spróbuj ponownie za kilka minut.");
         setSubmitError(true);
         setSubmitSuccess(true);
@@ -106,6 +99,7 @@ const AddTransaction = ({
       );
       setTransactions(beneficiaryTransactions);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [beneficiary, setBeneficiary]);
 
   const handleInput = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -149,7 +143,7 @@ const AddTransaction = ({
 
           {submitSuccess && (
             <div
-              className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative rounded-[10px]"
+              className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 relative rounded-[10px]"
               role="alert"
             >
               <strong className="font-bold">Sukces: </strong>

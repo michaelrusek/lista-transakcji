@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import TransactionType from "../../types/TransactionType";
 import { gsap } from "gsap";
 import { usefetchTransactions } from "../../hooks/useFetchTransactions";
@@ -36,7 +36,6 @@ const Transaction = ({
     fetch(`http://localhost:3000/transactions/${transaction.id}`, settings)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setSuccess(true);
         row.current?.classList.add("hide");
         gsap.to(row.current, {
@@ -53,7 +52,6 @@ const Transaction = ({
         });
       })
       .catch((err) => {
-        console.log(err.message);
         setErrorRow(true);
       });
   };
