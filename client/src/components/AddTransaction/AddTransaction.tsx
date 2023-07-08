@@ -5,40 +5,17 @@ import TransactionType from "../../types/TransactionType";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Balance from "../Balance/Balance";
 import { usefetchTransactions } from "../../hooks/useFetchTransactions";
-
-type Props = {
-  transactions: TransactionType[] | null;
-  setTransactions: React.Dispatch<
-    React.SetStateAction<TransactionType[] | null>
-  >;
-  beneficiary: string | undefined;
-  setBeneficiary: React.Dispatch<React.SetStateAction<string | undefined>>;
-  error: boolean;
-  setError: React.Dispatch<React.SetStateAction<boolean>>;
-  loading: boolean;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  transactionsInitial: TransactionType[] | null;
-  setTransactionsInitial: React.Dispatch<
-    React.SetStateAction<TransactionType[] | null>
-  >;
-};
-
-type Inputs = {
-  amount: string;
-  account: string;
-  address: string;
-  description: string;
-  beneficiary: string;
-};
+import Filter from "../Filter.tsx/Filter";
+import Error from "../Error/Error";
+import Success from "../Success/Success";
+import Props from "./AddTRansactionProps";
+import Inputs from "./AddTransactionInputType";
 
 const AddTransaction = ({
-  transactions,
   setTransactions,
   beneficiary,
   setBeneficiary,
-  error,
   setError,
-  loading,
   setLoading,
   transactionsInitial,
   setTransactionsInitial,
@@ -49,17 +26,17 @@ const AddTransaction = ({
   const [message, setMessage] = useState<string>(
     "Coś poszło nie tak. Spróbuj ponownie za kilka minut."
   );
+
   const { register, handleSubmit } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const date = new Date();
-
     const reg = new RegExp("^[0-9]+$");
 
     if (!reg.test(data.amount)) {
       setSubmitError(true);
       setSubmitSuccess(false);
       setMessage(
-        "Wpisz kwotę składającą się z samych cyft. Nie może to być kwota dodatnia."
+        "Wpisz kwotę składającą się z samych cyft. Musi to być kwota dodatnia."
       );
       return;
     }
@@ -120,39 +97,15 @@ const AddTransaction = ({
     <section className={`${styles.form} py-[6rem]`}>
       <div className="container grid sm:grid-cols-2 gap-8">
         <div className="flex-col flex">
-          <Balance transactions={transactions} />
-          <h2 className="mb-5">Search by Beneficiary</h2>
-          <TextField
-            className="max-w-[30rem]"
-            label="Type beneficiary here"
-            variant="outlined"
-            onChange={handleInput}
-          />
+          <Balance transactions={transactionsInitial} />
+
+          <Filter onChange={handleInput} />
         </div>
         <div>
           <h2 className="mb-5">Add transaction</h2>
-          {submitError && (
-            <div
-              className="bg-red-100 border border-red-400 text-red-700 px-6 py-3 relative rounded-[10px]"
-              role="alert"
-            >
-              <strong className="font-bold">Błąd: </strong>
-              <span className="block sm:inline">{message}</span>
-            </div>
-          )}
+          {submitError && <Error message={message} />}
+          {submitSuccess && <Success />}
 
-          {submitSuccess && (
-            <div
-              className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 relative rounded-[10px]"
-              role="alert"
-            >
-              <strong className="font-bold">Sukces: </strong>
-              <span className="block sm:inline">
-                Twoje zlecenie zostało utworzone i wkrótce pojawi się na stronie
-                WWW.
-              </span>
-            </div>
-          )}
           <form
             className="flex flex-col gap-[2rem] mt-[3rem]"
             onSubmit={handleSubmit(onSubmit)}
@@ -192,6 +145,7 @@ const AddTransaction = ({
               {...register("beneficiary")}
               required
             />
+
             <button className="button max-w-max" type="submit">
               Dodaj transakcję
             </button>
