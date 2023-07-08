@@ -10,15 +10,15 @@ const Balance = ({
 }) => {
   const getBalance = () => {
     const result = transactions?.reduce(function (acc, obj) {
-      return acc - obj.amount;
+      return acc + obj.amount;
     }, 0);
-    return result !== undefined && Math.floor(currentBalance - result);
+    return result !== undefined && Math.floor(currentBalance + result);
   };
 
   return (
     <div className="mb-[5rem] border p-5 max-w-[30rem]">
       <strong className="pr-[2rem]">Balance:</strong>
-      {getBalance()} PLN
+      <span data-testid="balance">{getBalance()}</span> PLN
     </div>
   );
 };
