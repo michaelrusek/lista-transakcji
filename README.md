@@ -9,3 +9,10 @@
 # Requirements
 
 - You sholud have installed node on your computer
+
+# About app functions
+
+- Add transactions
+- Remove transactions
+- Search by Beneficiary
+- Load more button to load more transactions
