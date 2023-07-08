@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Transactions.module.scss";
 import TransactionType from "../../types/TransactionType";
 import Transaction from "../Transaction/Transaction";
